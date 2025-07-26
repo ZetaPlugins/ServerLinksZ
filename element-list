@@ -1,6 +1,6 @@
-org.strassburger.serverlinksz
-org.strassburger.serverlinksz.commands
-org.strassburger.serverlinksz.commands.maincommand
-org.strassburger.serverlinksz.commands.maincommand.subcommands
-org.strassburger.serverlinksz.util
-org.strassburger.serverlinksz.util.bStats
+com.zetaplugins.serverlinksz
+com.zetaplugins.serverlinksz.commands
+com.zetaplugins.serverlinksz.commands.maincommand
+com.zetaplugins.serverlinksz.commands.maincommand.subcommands
+com.zetaplugins.serverlinksz.util
+com.zetaplugins.serverlinksz.util.bStats
