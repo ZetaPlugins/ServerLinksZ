@@ -1,14 +1,20 @@
 package com.zetaplugins.serverlinksz.util;
 
+import com.zetaplugins.zetacore.debug.command.DebugCommandHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import com.zetaplugins.serverlinksz.ServerLinksZ;
 import com.zetaplugins.serverlinksz.commands.LinkCommand;
 import com.zetaplugins.serverlinksz.commands.maincommand.MainCommandHandler;
 import com.zetaplugins.serverlinksz.commands.maincommand.MainTabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandManager {
     private final ServerLinksZ plugin;
@@ -40,6 +46,18 @@ public class CommandManager {
      */
     public void registerCommands() {
         registerCommand("serverlinksz", new MainCommandHandler(plugin), new MainTabCompleter(plugin));
+
+        Map<String, String> configs = new HashMap<>();
+        configs.put("config.yml", plugin.getConfig().saveToString());
+        configs.put("links.yml", getLinksConfig().saveToString());
+        DebugCommandHandler debugCommandHandler = new DebugCommandHandler(
+                "iR9qgF1M",
+                plugin,
+                plugin.getPluginFile(),
+                "serverlinksz.admin",
+                configs
+        );
+        registerCommand("slzdebug", debugCommandHandler, debugCommandHandler);
 
         if (plugin.getConfig().getBoolean("linkCommand")) {
             registerCommand("link", new LinkCommand(plugin), new LinkCommand(plugin));
@@ -80,5 +98,14 @@ public class CommandManager {
                     "&cYou don't have permission to use this!"
             ));
         }
+    }
+
+    private FileConfiguration getLinksConfig() {
+        File linksFile = new File(plugin.getDataFolder(), "links.yml");
+        if (!linksFile.exists()) {
+            linksFile.getParentFile().mkdirs();
+            plugin.saveResource("links.yml", false);
+        }
+        return YamlConfiguration.loadConfiguration(linksFile);
     }
 }

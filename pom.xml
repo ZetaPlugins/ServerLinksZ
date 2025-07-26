@@ -6,7 +6,7 @@
 
     <groupId>org.strassburger</groupId>
     <artifactId>ServerLinksZ</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>ServerLinksZ</name>
@@ -28,6 +28,34 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>com.zetaplugins:zetacore</include> <!-- Include zetacore dependency -->
+                        </includes>
+                    </artifactSet>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>com.zetaplugins.serverlinksz.ServerLinksZ</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -46,6 +74,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>zetaplugins</id>
+            <url>https://maven.zetaplugins.com/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -59,6 +91,11 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zetaplugins</groupId>
+            <artifactId>zetacore</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>

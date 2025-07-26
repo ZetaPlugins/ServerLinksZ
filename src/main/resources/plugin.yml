@@ -13,6 +13,9 @@ commands:
       - sl
       - slz
       - serverlinks
+  slzdebug:
+    description: Debug command for ServerLinksZ
+    permission: serverlinksz.admin
   link:
     description: Get a link
   discord:

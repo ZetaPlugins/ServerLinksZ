@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.zetaplugins.serverlinksz.util.bStats.CustomCharts;
 import com.zetaplugins.serverlinksz.util.bStats.Metrics;
 
+import java.io.File;
+
 public final class ServerLinksZ extends JavaPlugin {
     private CommandManager commandManager;
     private LanguageManager languageManager;
@@ -65,5 +67,9 @@ public final class ServerLinksZ extends JavaPlugin {
 
         metrics.addCustomChart(CustomCharts.getLanguageChart(this));
         metrics.addCustomChart(CustomCharts.getLinksChart(this));
+    }
+
+    public File getPluginFile() {
+        return this.getFile();
     }
 }
