@@ -18,34 +18,6 @@ commands:
     permission: serverlinksz.admin
   link:
     description: Get a link
-  discord:
-    description: Get the discord link
-    aliases:
-      - dc
-  website:
-    description: Get the website link
-  store:
-    description: Get the store link
-  teamspeak:
-    description: Get the teamspeak link
-    aliases:
-      - ts
-  youtube:
-    description: Get the youtube link
-    aliases:
-      - yt
-  twitter:
-    description: Get the twitter link
-  instagram:
-    description: Get the instagram link
-    aliases:
-      - insta
-  facebook:
-    description: Get the facebook link
-  tiktok:
-    description: Get the tiktok link
-  vote:
-    description: Get the vote link
 
 permissions:
   serverlinksz.admin:

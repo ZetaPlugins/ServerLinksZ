@@ -28,8 +28,4 @@ hints: true
 # Add a /link command to view the links
 linkCommand: true
 
-# Instead of using the /link command, you can also use a custom command for any link (e.g. /mycoollink)
-# This feature is experimental and might not work as expected
-dynamicCommands: false
-
 # [!!!] You can configure the links in the links.yml file!

@@ -18,9 +18,6 @@ import java.util.Map;
 
 public class CommandManager {
     private final ServerLinksZ plugin;
-    private final List<String> defaultLinkCommands = List.of(
-            "discord", "website", "store", "teamspeak", "twitter", "youtube", "instagram", "facebook", "tiktok", "vote"
-    );
 
     public CommandManager(ServerLinksZ plugin) {
         this.plugin = plugin;
@@ -63,19 +60,14 @@ public class CommandManager {
             registerCommand("link", new LinkCommand(plugin), new LinkCommand(plugin));
         }
 
-        for (String linkCommand : defaultLinkCommands) {
-            registerCommand(linkCommand, new LinkCommand(plugin), new LinkCommand(plugin));
-        }
-
         CommandMap commandMap = getCommandMap();
 
-        if (commandMap == null || !plugin.getConfig().getBoolean("dynamicCommands")) return;
+        if (commandMap == null) return;
 
         for (String linkKey : plugin.getLinkManager().getLinkKeys()) {
-            if (defaultLinkCommands.contains(linkKey)) continue;
             LinkManager.Link link = plugin.getLinkManager().getLink(linkKey);
             if (link == null || !link.allowCommand()) continue;
-            commandMap.register(linkKey, link.getCommand());
+            commandMap.register(linkKey, "slzcmd", link.getCommand());
         }
     }
 
