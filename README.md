@@ -87,11 +87,20 @@ And here an example of the links configuration file:
 discord:
   name: "<#7289da>&lDiscord"
   url: "https://strassburger.org/discord"
+  type: CUSTOM
   allowCommand: true
 website:
   name: "<#7cd770>&lWebsite"
   url: "https://modrinth.com/plugin/serverlinksz"
+  type: CUSTOM
   allowCommand: false
+bugreport:
+  name: "<#ff746c>&lReport a bug"
+  url: "https://example.com/issues"
+  # The type can be any of ANNOUNCEMENTS, COMMUNITY, COMMUNITY_GUIDELINES, FEEDBACK, FORUMS, NEWS, REPORT_BUG, STATUS, SUPPORT, WEBSITE, CUSTOM
+  # CUSTOM will display the name in the links menu. Anything else will display a client side defined label.
+  type: REPORT_BUG
+  allowCommand: true
 ```
 </details>
 
