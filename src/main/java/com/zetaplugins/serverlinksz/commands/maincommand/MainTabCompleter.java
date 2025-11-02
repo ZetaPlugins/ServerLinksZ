@@ -1,5 +1,6 @@
 package com.zetaplugins.serverlinksz.commands.maincommand;
 
+import com.zetaplugins.serverlinksz.commands.CommandUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -25,6 +26,7 @@ public class MainTabCompleter implements TabCompleter {
             case 3 -> getThirdArgOptions(args);
             case 4 -> getFourthArgOptions(args);
             case 5 -> getFifthArgOptions(args);
+            case 6 -> getSixthArgOptions(args);
             default -> List.of();
         };
     }
@@ -32,8 +34,9 @@ public class MainTabCompleter implements TabCompleter {
     public List<String> getFirstArgOptions(CommandSender sender, String[] args) {
         List<String> availableOptions = new ArrayList<>();
 
-        if ("help".startsWith(args[0].toLowerCase()) || args[0].equalsIgnoreCase("help"))
+        if ("help".startsWith(args[0].toLowerCase()) || args[0].equalsIgnoreCase("help")) {
             availableOptions.add("help");
+        }
 
         if (sender.hasPermission("serverlinksz.admin")) {
             List<String> adminCommands = List.of("add", "remove", "reload");
@@ -85,6 +88,26 @@ public class MainTabCompleter implements TabCompleter {
     public List<String> getFifthArgOptions(String[] args) {
         if (args[0].equals("add")) {
             return List.of("true", "false");
+        }
+
+        return List.of();
+    }
+
+    public List<String> getSixthArgOptions(String[] args) {
+        if (args[0].equals("add")) {
+            return CommandUtils.getDisplayOptions(List.of(
+                    "CUSTOM",
+                    "ANNOUNCEMENTS",
+                    "COMMUNITY",
+                    "COMMUNITY_GUIDELINES",
+                    "FEEDBACK",
+                    "FORUMS",
+                    "NEWS",
+                    "REPORT_BUG",
+                    "STATUS",
+                    "SUPPORT",
+                    "WEBSITE"
+            ), args[5]);
         }
 
         return List.of();

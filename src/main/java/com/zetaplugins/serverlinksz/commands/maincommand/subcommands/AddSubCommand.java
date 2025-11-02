@@ -34,6 +34,7 @@ public class AddSubCommand implements SubCommand {
         String name = args[2];
         String url = args[3];
         boolean allowCommand = args.length > 4 && args[4].equals("true");
+        String type = args.length > 5 ? args[5] : "CUSTOM";
 
         if (!isValidURL(url)) {
             sender.sendMessage(MessageUtils.getAndFormatMsg(false, "invalidUrlError", "&cThe URL is invalid!"));
@@ -45,7 +46,7 @@ public class AddSubCommand implements SubCommand {
             return false;
         }
 
-        plugin.getLinkManager().addLink(id, name, url, allowCommand);
+        plugin.getLinkManager().addLink(id, name, url, allowCommand, type);
         sender.sendMessage(MessageUtils.getAndFormatMsg(true, "addLinkMsg", "&7Successfully added link with id %id%!", new MessageUtils.Replaceable("%id%", id)));
         if (showHints) {
             sender.sendMessage(MessageUtils.getAndFormatMsg(false, "rejoinHint", "<#E9D502>⚠ To update the Serverlinks, please rejoin the server!"));
@@ -57,7 +58,7 @@ public class AddSubCommand implements SubCommand {
 
     @Override
     public String getUsage() {
-        return "/serverlinksz add <id> <name> <url> <allowCommand>";
+        return "/serverlinksz add <id> <name> <url> <allowCommand> <type>";
     }
 
     @Override

@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
 import com.zetaplugins.serverlinksz.ServerLinksZ;
 import com.zetaplugins.serverlinksz.commands.LinkCommand;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -43,8 +43,10 @@ public class LinkManager {
         for (String key : config.getKeys(false)) {
             String name = config.getString(key + ".name");
             String url = config.getString(key + ".url");
+            String type = config.getString(key + ".type");
+            if (name == null || url == null) continue;
 
-            registerLink(name, url);
+            registerLink(name, url, type);
         }
     }
 
@@ -53,13 +55,29 @@ public class LinkManager {
      * @param name The name of the link
      * @param url The URL of the link
      */
-    private void registerLink(String name, String url) {
+    private void registerLink(String name, String url, @Nullable String typeString) {
         try {
             URI uri = new URI(url);
-            serverLinks.addLink(MessageUtils.formatMsg(name), uri);
+            ServerLinks.Type type = getLinkType(typeString);
+            if (type != null) serverLinks.addLink(type, uri);
+            else serverLinks.addLink(MessageUtils.formatMsg(name), uri);
         } catch (URISyntaxException e) {
             logger.warning("Invalid URL: " + url);
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Gets the link type from the name
+     * @param name The name of the link
+     * @return The link type, or null if not found
+     */
+    private ServerLinks.Type getLinkType(String name) {
+        if (name == null) return null;
+        try {
+            return ServerLinks.Type.valueOf(name.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return null;
         }
     }
 
@@ -69,12 +87,18 @@ public class LinkManager {
      * @param name The name of the link
      * @param url The URL of the link
      * @param command Whether the link should allow commands
+     * @param stringType The type of the link as a string
      */
-    public void addLink(String key, String name, String url, boolean command) {
+    public void addLink(String key, String name, String url, boolean command, String stringType) {
         final FileConfiguration config = getLinksConfig();
+        ServerLinks.Type type = getLinkType(stringType);
+        String typeToSave = type != null ? type.toString() : "CUSTOM";
+
         config.set(key + ".name", name);
         config.set(key + ".url", url);
         config.set(key + ".allowCommand", command);
+        config.set(key + ".type", typeToSave);
+
         saveLinksConfig(config);
         updateLinks();
     }
