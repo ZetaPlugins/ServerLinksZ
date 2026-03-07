@@ -5,6 +5,7 @@ api-version: '1.21'
 authors: [ Kartoffelchipss ]
 description: A simple plugin to add Links to your server
 website: strassburger.org
+folia-supported: true
 
 commands:
   serverlinksz:
