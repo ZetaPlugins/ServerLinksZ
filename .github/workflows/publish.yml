@@ -84,5 +84,8 @@ jobs:
             purpur
           game-versions: |-
             1.21.x
+            26.1
+            26.1.1
+            26.1.2
           status: 'listed'
           channel: 'release'
