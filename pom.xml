@@ -41,9 +41,17 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.faststats</pattern>
+                            <shadedPattern>com.zetaplugins.serverlinksz.libs.faststats</shadedPattern>
+                        </relocation>
+                    </relocations>
                     <artifactSet>
                         <includes>
                             <include>com.zetaplugins:zetacore</include> <!-- Include zetacore dependency -->
+                            <include>dev.faststats.metrics:bukkit</include>
+                            <include>dev.faststats.metrics:core</include>
                         </includes>
                     </artifactSet>
                     <transformers>
@@ -78,6 +86,10 @@
             <id>zetaplugins</id>
             <url>https://maven.zetaplugins.com/</url>
         </repository>
+        <repository>
+            <id>faststats-releases</id>
+            <url>https://repo.faststats.dev/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -96,6 +108,16 @@
             <groupId>com.zetaplugins</groupId>
             <artifactId>zetacore</artifactId>
             <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.faststats.metrics</groupId>
+            <artifactId>core</artifactId>
+            <version>0.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.faststats.metrics</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>0.22.0</version>
         </dependency>
     </dependencies>
 </project>
