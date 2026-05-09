@@ -15,7 +15,7 @@ import java.io.File;
 
 public final class ServerLinksZ extends JavaPlugin {
     private static final int BSTATS_PLUGIN_ID = 22795;
-    private static final String FASTSTATS_TOKEN = "e74ea63e83b6c70ddbd45a8d609f1a03";
+    private static final String FASTSTATS_TOKEN = "dc3c707725c27c50b32177054b09058c";
     public static final ErrorTracker FASTSTATS_ERROR_TRACKER = ErrorTracker.contextAware();
 
     private dev.faststats.core.Metrics faststatsMetrics;
